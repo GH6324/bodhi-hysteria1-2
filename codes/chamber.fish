@@ -204,7 +204,8 @@ outbounds:
         end
     end
     if $hysteria2
-        if set -q acl
+        if test -z "$acl"
+        else
             cat "acl:
   file: $acl" >>server.yaml
         end
@@ -215,7 +216,8 @@ else
     exit 1
 end' >knck
     else
-        if set -q acl
+        if test -z "$acl"
+        else
             set v1_server_json (cat server.json)
             set v1_server_json (echo "$v1_server_json" | yq -o=json ".acl = \"$acl\"")
             echo "$v1_server_json" >server.json

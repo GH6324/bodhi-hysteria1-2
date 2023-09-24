@@ -73,7 +73,8 @@ core_path=/path/to/core
 tls_cert=/path/to/cert
 tls_key=/path/to/key
 psk=leuleuleuleu
-obfs=true' >"$bodhi_conf"
+obfs=true
+acl=' >"$bodhi_conf"
             logger 0 "@bodhi.init CONT -> Please modify the config file and relaunch bodhi again"
             exit 0
         end
