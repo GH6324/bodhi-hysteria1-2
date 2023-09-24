@@ -8,10 +8,10 @@ switch $argv[1]
         logger 0 'Genshin@rev2'
     case '*'
         # def var
-        set -x bodhi_conf bodhi_root bodhi_verbose upstream_api api_port loc tls_cert nodeid tls_key psk hysteria_ver ipv6
+        set -x bodhi_conf bodhi_root bodhi_verbose upstream_api api_port loc tls_cert nodeid tls_key psk hysteria_ver ipv6 acl
 
         # parse argv
-        argparse -i -n $prefix i/init 'c/conf=' 'v/verbose=' 'd/root=' 'p/port=' 'u/upstream=' 'n/nodeid=' 'o/tls_cert=' 'k/tls_key=' 'q/core_path=' 'r/psk=' f/on_the_fly 'b/obfs=' -- $argv
+        argparse -i -n $prefix i/init 'a/acl=' 'c/conf=' 'v/verbose=' 'd/root=' 'p/port=' 'u/upstream=' 'n/nodeid=' 'o/tls_cert=' 'k/tls_key=' 'q/core_path=' 'r/psk=' f/on_the_fly 'b/obfs=' -- $argv
 
         # load default settings
         set bodhi_conf config.ini
@@ -51,6 +51,7 @@ switch $argv[1]
             set tls_key (configure "tls_key" "$bodhi_conf")
             set psk (configure "psk" "$bodhi_conf")
             set obfs (configure "obfs" "$bodhi_conf")
+            set acl (configure "acl" "$bodhi_conf")
         end
         # load node settings from argv
 
@@ -77,6 +78,9 @@ switch $argv[1]
         end
         if set -q _flag_obfs
             set obfs "$_flag_obfs"
+        end
+        if set -q _flag_acl
+            set acl "$_flag_acl"
         end
         # url encode psk
         set psk (string escape --style=url "$psk")
@@ -110,7 +114,8 @@ core_path => $core_path
 tls_key => $tls_key
 tls_cert => $tls_cert
 psk => $psk
-obfs => $obfs"
+obfs => $obfs
+acl => $acl"
             if set -q _flag_init; and set -q _flag_on_the_fly
                 logger 3 'EXTLIST => ["on_the_fly", "init"]'
             else

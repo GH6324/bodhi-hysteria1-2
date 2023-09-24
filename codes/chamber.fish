@@ -204,6 +204,10 @@ outbounds:
         end
     end
     if $hysteria2
+        if set -q acl
+            cat "acl:
+  file: $acl" >>server.yaml
+        end
         echo '#!/usr/bin/fish
 if ./bin/yq \'.users[].uuid\' userlist | string match -q "$argv[2]"
   printf "$argv[2]"
@@ -211,6 +215,11 @@ else
     exit 1
 end' >knck
     else
+        if set -q acl
+            set v1_server_json (cat server.json)
+            set v1_server_json (echo "$v1_server_json" | yq -o=json ".acl = \"$acl\"")
+            echo "$v1_server_json" >server.json
+        end
         echo '#!/usr/bin/fish
 if ./bin/yq \'.users[].uuid\' userlist | string match -q "$argv[2]"
 else
