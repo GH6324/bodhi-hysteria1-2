@@ -339,7 +339,7 @@ function chamber
     set host (echo "$raw_conf" | yq -p json .host)
     set server_port (echo "$raw_conf" | yq -p json .server_port)
     set up_mbps (echo "$raw_conf" | yq -p json .up_mbps)
-    set down_mbps (echo "$raw_conf" | -p json yq .down_mbps)
+    set down_mbps (echo "$raw_conf" |  yq -p json .down_mbps)
     set obfs (echo "$raw_conf" | yq -p json .obfs)
     set push_interval (echo "$raw_conf" | yq -p json .base_config.push_interval)
     # Check TLSnec
