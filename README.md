@@ -1,4 +1,7 @@
-# bodhi
+# Replaced with bodhi-next very soon, with a better performance
+
+## bodhi
+
 Open source hysteria backend for v2board
 
 ### UserManual | 用戶手冊
